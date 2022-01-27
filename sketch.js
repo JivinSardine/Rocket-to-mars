@@ -13,6 +13,7 @@ var speed_powerup;
 var astroid;
 var star;
 var game_over_image;
+var rocket_sound_load;
 
 
 
@@ -23,6 +24,8 @@ function preload(){
     star_image = loadImage("star.png");
     speed_powerup_image = loadImage("speed.png");
     game_over_image = loadAnimation("rocket_crash.png");
+
+    rocket_sound_load = loadSound("rocket_crash.mp3");
 }
 
 function setup() {
@@ -71,6 +74,7 @@ function draw() {
             starG.destroyEach();
             astroidG.destroyEach();
             speed_powerupG.destroyEach();
+            rocket.playSound(rocket_sound_load);
             rocket.changeAnimation("crash", game_over_image);
             gameState = END;
         }
