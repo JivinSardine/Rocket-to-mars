@@ -25,7 +25,7 @@ function preload(){
     speed_powerup_image = loadImage("speed.png");
     game_over_image = loadAnimation("rocket_crash.png");
 
-    rocket_sound_load = loadSound("rocket_crash.mp3");
+    rocket_sound_load = loadSound("rocket_crash.wav");
 }
 
 function setup() {
