@@ -74,7 +74,7 @@ function draw() {
             starG.destroyEach();
             astroidG.destroyEach();
             speed_powerupG.destroyEach();
-            rocket.PlaySound(rocket_sound_load);
+            rocket_sound_load.play();
             rocket.changeAnimation("crash", game_over_image);
             gameState = END;
         }
