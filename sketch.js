@@ -176,6 +176,4 @@ function createAstroid() {
     
     score = 0;
     stars = 0;
-    
-  }
-  
+}
