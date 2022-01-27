@@ -16,6 +16,8 @@ var game_over_image;
 var rocket_sound_load;
 var shoot, shoot_image, shoot_sound_load, shootG;
 
+var restart, restartImg;
+
 
 
 function preload(){
@@ -25,10 +27,12 @@ function preload(){
     star_image = loadImage("star.png");
     speed_powerup_image = loadImage("speed.png");
     game_over_image = loadAnimation("rocket_crash.png");
-    shoot_image = loadImage("shoot.png")
+    shoot_image = loadImage("shoot.png");
+    restartImg = loadImage("restart.png");
 
     rocket_sound_load = loadSound("rocket_crash.wav");
-    shoot_sound_load = loadSound("shoot_sound.wav")
+    shoot_sound_load = loadSound("shoot_sound.wav");
+
 }
 
 function setup() {
@@ -43,7 +47,10 @@ function setup() {
     rocket.debug = false;
     rocket.setCollider('circle',0,0,50);
 
-    
+    restart = createSprite(width/2,height/2);
+    restart.addImage(restartImg);
+    restart.scale = 0.1;
+    restart.visible = false;
 
     astroidG = new Group();
     starG = new Group();
@@ -63,8 +70,13 @@ function draw() {
     text("Score: "+ score,30,80);
 
     if (gameState===PLAY){
+        starG.depth = rocket.depth;
+        rocket.depth = rocket.depth-1;
+
         score = score + Math.round(getFrameRate()/60);
         rocket.x = World.mouseX;
+        
+        //for fun//rocket.y = World.mouseY;
 
         createAstroid();
         createStar();
@@ -104,6 +116,11 @@ function draw() {
         textSize(50);
         fill("white")
         text("Game Over",150,300);
+        restart.visible = true;
+
+        if(keyDown("SPACE")) {      
+            reset();
+          }
     }
 
 
@@ -140,9 +157,25 @@ function createAstroid() {
         speed_powerup = createSprite(Math.round(random(windowWidth),40, 10, 10));
         speed_powerup.addImage(speed_powerup_image);
         speed_powerup.scale=0.12;
-        speed_powerup.velocityY = 15;
+        speed_powerup.velocityY = 10;
         speed_powerup.lifetime = 400;
         speed_powerupG.add(speed_powerup);
     
     }
   }
+
+  function reset(){
+    gameState = PLAY;
+    restart.visible = false;
+    
+    speed_powerupG.destroyEach();
+    starG.destroyEach();
+    astroidG.destroyEach();
+    
+    rocket.changeAnimation("rocket",rocket_image);
+    
+    score = 0;
+    stars = 0;
+    
+  }
+  
