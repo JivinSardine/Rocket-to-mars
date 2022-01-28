@@ -18,6 +18,8 @@ var rocket_sound_load;
 var shoot, shoot_image, shoot_sound_load, shootG;
 var shoot_ammo, shoot_ammo_image, ammoG;
 var alien, alien_image, alienG;
+var black_hole, black_hole_image, black_holeG;
+
 var restart, restartImg;
 
 
@@ -33,6 +35,7 @@ function preload(){
     restartImg = loadImage("restart.png");
     shoot_ammo_image = loadImage("shoot_ammo.png");
     alien_image = loadImage("alien.png");
+    black_hole_image = loadImage("black_hole.png")
 
     rocket_sound_load = loadSound("rocket_crash.wav");
     shoot_sound_load = loadSound("shoot_sound.wav");
@@ -44,7 +47,7 @@ function setup() {
 
     backgroundImg.velocityX = -(6 + 3*score/100);
 
-    rocket = createSprite(200,650,10,10);
+    rocket = createSprite(200,500,10,10);
     rocket.addAnimation("rocket",rocket_image);
     rocket.addAnimation("crash", game_over_image);
     rocket.scale = 0.5;
@@ -60,7 +63,11 @@ function setup() {
     starG = new Group();
     speed_powerupG = new Group();
     shootG = new Group();
-    ammoG = new Group
+    ammoG = new Group();
+    black_holeG = new Group();
+    alienG = new Group();
+
+
 }
 
 function draw() {
@@ -89,6 +96,9 @@ function draw() {
         createStar();
         createSpeed();
         createAmmo();
+        createalien();
+        createblackhole();
+
 
         if(rocket.isTouching(starG)){
             stars = stars + 1;
@@ -99,6 +109,8 @@ function draw() {
             astroidG.destroyEach();
             speed_powerupG.destroyEach();
             ammoG.destroyEach();
+            alienG.destroyEach();
+            black_holeG.destroyEach();
             rocket_sound_load.play();
             rocket.changeAnimation("crash", game_over_image);
             gameState = END;
@@ -202,13 +214,37 @@ function createAstroid() {
 }
 
 function createAmmo() {
-    if (World.frameCount % 130 == 0) {
+    if (World.frameCount % 500 == 0) {
         shoot_ammo = createSprite(Math.round(random(windowWidth),40, 10, 10));
         shoot_ammo.addImage(shoot_ammo_image);
         shoot_ammo.scale=0.2;
         shoot_ammo.velocityY = 5;
         shoot_ammo.lifetime = 400;
         ammoG.add(shoot_ammo);
+    
+    }
+  }
+
+  function createalien() {
+    if (World.frameCount % 249 == 0) {
+        alien = createSprite(Math.round(random(windowWidth),40, 10, 10));
+        alien.addImage(alien_image);
+        alien.scale=0.2;
+        alien.velocityY = 5;
+        alien.lifetime = 400;
+        alienG.add(alien);
+    
+    }
+  }
+
+  function createblackhole() {
+    if (World.frameCount % 435 == 0) {
+        black_hole = createSprite(Math.round(random(windowWidth),40, 10, 10));
+        black_hole.addImage(black_hole_image);
+        black_hole.scale=0.2;
+        black_hole.velocityY = 5;
+        black_hole.lifetime = 400;
+        black_holeG.add(black_hole);
     
     }
   }
