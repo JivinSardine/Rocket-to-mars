@@ -17,7 +17,7 @@ var game_over_image;
 var rocket_sound_load;
 var shoot, shoot_image, shoot_sound_load, shootG;
 var shoot_ammo, shoot_ammo_image, ammoG;
-
+var alien, alien_image, alienG;
 var restart, restartImg;
 
 
@@ -32,6 +32,7 @@ function preload(){
     shoot_image = loadImage("shoot.png");
     restartImg = loadImage("restart.png");
     shoot_ammo_image = loadImage("shoot_ammo.png");
+    alien_image = loadImage("alien.png");
 
     rocket_sound_load = loadSound("rocket_crash.wav");
     shoot_sound_load = loadSound("shoot_sound.wav");
