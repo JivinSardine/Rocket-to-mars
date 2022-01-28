@@ -30,7 +30,7 @@ function preload(){
     game_over_image = loadAnimation("rocket_crash.png");
     shoot_image = loadImage("shoot.png");
     restartImg = loadImage("restart.png");
-    shoot_ammo_image = loadImage("shoot_ammo.gif");
+    shoot_ammo_image = loadAnimation("shoot_ammo.gif");
 
     rocket_sound_load = loadSound("rocket_crash.wav");
     shoot_sound_load = loadSound("shoot_sound.wav");
@@ -63,15 +63,14 @@ function setup() {
 function draw() {
     background(backgroundImg);
 
-    console.log(rocket.x)
     textSize(20);
     fill("white")
     text("Stars: "+ stars,30,50);
 
-    fill("white")
+    textSize(20);
     text("Score: "+ score,30,80);
 
-    fill("white")
+    textSize(20);
     text("Ammo : "+ shoot_lines,30,110);
 
     if (gameState===PLAY){
@@ -192,14 +191,15 @@ function createAstroid() {
     
     score = 0;
     stars = 0;
+    shoot_lines = 2;
 
 
 }
 
 function createAmmo() {
-    if (World.frameCount % 300 == 0) {
+    if (World.frameCount % 130 == 0) {
         shoot_ammo = createSprite(Math.round(random(windowWidth),40, 10, 10));
-        shoot_ammo.addImage(shoot_ammo_image);
+        shoot_ammo.addAnimation("shoot",shoot_ammo_image);
         shoot_ammo.scale=0.12;
         shoot_ammo.velocityY = 5;
         shoot_ammo.lifetime = 400;
