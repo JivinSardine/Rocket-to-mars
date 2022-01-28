@@ -15,7 +15,8 @@ var astroid;
 var star;
 var game_over_image;
 var rocket_sound_load;
-var shoot, shoot_image, shoot_sound_load, shootG, shoot_ammo, shoot_ammo_image, shoot_ammoG;
+var shoot, shoot_image, shoot_sound_load, shootG;
+var shoot_ammo, shoot_ammo_image, ammoG;
 
 var restart, restartImg;
 
@@ -30,7 +31,7 @@ function preload(){
     game_over_image = loadAnimation("rocket_crash.png");
     shoot_image = loadImage("shoot.png");
     restartImg = loadImage("restart.png");
-    shoot_ammo_image = loadAnimation("shoot_ammo.gif");
+    shoot_ammo_image = loadImage("shoot_ammo.png");
 
     rocket_sound_load = loadSound("rocket_crash.wav");
     shoot_sound_load = loadSound("shoot_sound.wav");
@@ -58,6 +59,7 @@ function setup() {
     starG = new Group();
     speed_powerupG = new Group();
     shootG = new Group();
+    ammoG = new Group
 }
 
 function draw() {
@@ -95,20 +97,18 @@ function draw() {
             starG.destroyEach();
             astroidG.destroyEach();
             speed_powerupG.destroyEach();
+            ammoG.destroyEach();
             rocket_sound_load.play();
             rocket.changeAnimation("crash", game_over_image);
             gameState = END;
         }
-        if(rocket.isTouching(speed_powerupG)){
+        else if(rocket.isTouching(speed_powerupG)){
             speed_powerupG.destroyEach();
             score = score + 500;
         }
-        if(rocket.isTouching(shoot_ammoG)){
-            shoot_ammoG.destroyEach();
-            shoot_lines = shoot_lines + 2;
-        }
 
-        if (keyDown("SPACE") && shoot_lines > 0) {
+
+        else if (keyDown("SPACE") && shoot_lines > 0) {
             shoot_lines = shoot_lines - 1;
             shoot = createSprite(rocket.x,rocket.y, 10, 10);
             shoot.addImage(shoot_image);
@@ -118,11 +118,15 @@ function draw() {
             shoot.lifetime = 400;
             shootG.add(shoot);
         }
-        if(shootG.isTouching(astroidG)){
+        else if(shootG.isTouching(astroidG)){
             astroidG.destroyEach();
         }
-        if(shoot_lines < 0){
+        else if(shoot_lines < 0){
             shootG.destroyEach();
+        }
+        else if(rocket.isTouching(ammoG)){
+            ammoG.destroyEach();
+            shoot_lines = shoot_lines + 2
         }
         
     }
@@ -199,11 +203,11 @@ function createAstroid() {
 function createAmmo() {
     if (World.frameCount % 130 == 0) {
         shoot_ammo = createSprite(Math.round(random(windowWidth),40, 10, 10));
-        shoot_ammo.addAnimation("shoot",shoot_ammo_image);
-        shoot_ammo.scale=0.12;
+        shoot_ammo.addImage(shoot_ammo_image);
+        shoot_ammo.scale=0.2;
         shoot_ammo.velocityY = 5;
         shoot_ammo.lifetime = 400;
-        shoot_ammoG.add(shoot_ammo);
+        ammoG.add(shoot_ammo);
     
     }
   }
