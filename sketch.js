@@ -3,6 +3,7 @@ var END = 0;
 var gameState = PLAY;
 var stars = 0;
 var score = 0;
+var shoot_lines = 2;
 
 var rocket, rocket_image;
 var astroid_image, astroidG;
@@ -69,6 +70,9 @@ function draw() {
     fill("white")
     text("Score: "+ score,30,80);
 
+    fill("white")
+    text("Ammo : "+ shoot_lines,30,110);
+
     if (gameState===PLAY){
         starG.depth = rocket.depth;
         rocket.depth = rocket.depth-1;
@@ -98,7 +102,8 @@ function draw() {
             speed_powerupG.destroyEach();
             score = score + 500;
         }
-        if (keyDown("SPACE")) {
+        if (keyDown("SPACE") && shoot_lines > 0) {
+            shoot_lines = shoot_lines - 1;
             shoot = createSprite(rocket.x,rocket.y, 10, 10);
             shoot.addImage(shoot_image);
             shoot_sound_load.play();
@@ -109,6 +114,9 @@ function draw() {
         }
         if(shootG.isTouching(astroidG)){
             astroidG.destroyEach();
+        }
+        if(shoot_lines < 0){
+            shootG.destroyEach();
         }
     }
 
