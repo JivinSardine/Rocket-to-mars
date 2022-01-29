@@ -145,7 +145,7 @@ function draw() {
         }
         else if(rocket.isTouching(ammoG)){
             ammoG.destroyEach();
-            shoot_lines = shoot_lines + 2
+            shoot_lines = shoot_lines + 50
         }
         else if(rocket.isTouching(alienG)){
             rocket.changeAnimation("alien crash", spaceship_crash_image);
