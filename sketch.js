@@ -47,7 +47,7 @@ function setup() {
 
     backgroundImg.velocityX = -(6 + 3*score/100);
 
-    rocket = createSprite(200,500,10,10);
+    rocket = createSprite(200,windowHeight-60,10,10);
     rocket.addAnimation("rocket",rocket_image);
     rocket.addAnimation("crash", game_over_image);
     rocket.scale = 0.5;
