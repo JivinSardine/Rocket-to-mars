@@ -38,7 +38,8 @@ function preload(){
     shoot_ammo_image = loadImage("shoot_ammo.png");
     alien_image = loadAnimation("alien.png");
     black_hole_image = loadImage("black_hole.png");
-    spaceship_crash_image = loadAnimation("spaceship_crash.png")
+    spaceship_crash_image = loadAnimation("spaceship_crash.png");
+
 
     rocket_sound_load = loadSound("rocket_crash.wav");
     shoot_sound_load = loadSound("shoot_sound.wav");
@@ -62,6 +63,7 @@ function setup() {
     restart.addImage(restartImg);
     restart.scale = 0.1;
     restart.visible = false;
+
 
     astroidG = new Group();
     starG = new Group();
@@ -169,16 +171,6 @@ function draw() {
             rocket_sound_load.play();
             gameState = END;
         }
-        else if(score === 500){
-            alienG.destroyEach();
-            starG.destroyEach();
-            astroidG.destroyEach();
-            speed_powerupG.destroyEach();
-            ammoG.destroyEach();
-            black_holeG.destroyEach();
-            rocket_sound_load.play();
-            gameState = MARS;
-        }
         
     }
 
@@ -193,11 +185,6 @@ function draw() {
           }
     }
 
-    if(gameState === MARS){
-        textSize(50);
-        fill("white")
-        text("You have sucessfully reached Mars!!",150,300);
-    }
 
 
 drawSprites();
